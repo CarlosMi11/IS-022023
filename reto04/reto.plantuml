@@ -1,0 +1,32 @@
+@startuml RETO
+class Persona{
+    string nombre
+    int telefono
+    string direccion
+}
+class Jugador{
+    int numero
+    string posicion
+}
+Jugador --|> Persona
+
+class Entrenador{
+    int acreditacion
+    int AñosExperiencia
+}
+Entrenador --|> Persona
+
+class Equipo{
+    string nombre
+    int registro
+    Jugador capitan
+    Jugador jugadores[20]
+}
+
+Entrenador "1" --> "*" Equipo : entrena
+class Juego{
+    string localizacion
+    int puntuacion
+}
+Juego "1" -- "2" Equipo : compiten
+@enduml
