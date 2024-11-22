@@ -1,0 +1,17 @@
+@startuml
+
+
+agent ": registro" as 1
+
+agent ": venta" as 3
+
+ 
+actor cliente
+
+cliente --> 1 : "1 : crearNuevaVenta() \n 2 : introducirArticulo(ArticuloID id, int cant) \n 3 : finalizarVenta()"
+
+
+1 --> 3 : " 2 : crearLineaVenta(espec, cant)"
+
+
+@enduml

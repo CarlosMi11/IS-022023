@@ -1,0 +1,44 @@
+@startuml diagrama_estado
+
+[*] --> Encargando_Producto
+
+Encargando_Producto : entry / presentar opciones de productos
+Encargando_Producto : do / recibir especificaciones del pedido
+Encargando_Producto : exit / cargar solicitud
+
+Encargando_Producto --> Validando_Pedido : procesar pedido
+Validando_Pedido : entry / mostrar solicitud del pedido
+Validando_Pedido : do / verificar disponibilidad y calcular costo
+Validando_Pedido : exit / mostrar costo total
+
+Validando_Pedido --> Cobrando : solicitar método de pago
+Cobrando : entry / indicar monto a cliente
+Cobrando : do / solicitar datos de pago
+Cobrando : exit / cargar datos de pago
+
+Cobrando --> Obteniendo_Producto
+Obteniendo_Producto : entry / preparar el pedido
+Obteniendo_Producto : do / empaquetar producto
+Obteniendo_Producto : exit / cargar pedido
+
+state rombo <<choice>>
+Obteniendo_Producto --> rombo
+
+rombo --> Enviando_Rapido : [envío rápido]
+rombo --> Enviando_Estandar : [envío estándar]
+
+state bifurcado <<fork>>
+Enviando_Rapido --> bifurcado
+Enviando_Estandar --> bifurcado
+
+bifurcado --> Agregando_Lista_Cliente : procesar venta
+
+state rombo2 <<choice>>
+Agregando_Lista_Cliente --> rombo2 
+
+rombo2 --> Enviando_Recibo : [feedback positivo]
+rombo2 --> Enviando_Recibo : [feedback negativo]
+
+Enviando_Recibo --> [*]
+
+@enduml
